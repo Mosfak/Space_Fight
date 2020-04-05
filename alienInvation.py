@@ -20,8 +20,14 @@ def run_game():
     while True:
         gf.check_events(ai_settings,screen,ship,bullets)
         ship.update()
-        gf.update_screen(ai_settings,screen,ship,bullets)
         bullets.update()
-        
+        gf.update_screen(ai_settings,screen,ship,bullets)
+
+        #get rid of bullets off screen
+        for bullet in bullets:
+            if bullet.rect.bottom < 0:
+                bullets.remove(bullet)
+        print("live Bullets: ",len(bullets))
+    return
 
 run_game()

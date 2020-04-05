@@ -14,7 +14,7 @@ def check_keypress(event,ai_settings,screen,ship,bullets):
 	elif event.key == pygame.K_DOWN:
 		ship.moving_down = True
 	elif event.key == pygame.K_SPACE:
-		bullets.add(Bullet(ai_settings,screen, ship))
+		bullet.fire = True
 
 
 def check_keyrelease(event,ship):
