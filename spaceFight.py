@@ -30,7 +30,7 @@ def run_game():
         for bullet in bullets:
             if bullet.rect.bottom < 0:
                 bullets.remove(bullet)
-        print("live Bullets: ",len(bullets))
+        #print("live Bullets: ",len(bullets))
     return
 
 run_game()
