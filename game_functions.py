@@ -50,17 +50,17 @@ def get_number_aliens(ai_settings,screen,aliens):
 	number_aliens_x = int(available_space_x / (2* alien.width))
 	return number_aliens_x
 
-def create_alien(ai_settings,screen,aliens,number_aliens_x):
-	for i in range(number_aliens_x):
+def create_alien(ai_settings,screen,aliens,alien_number):
 		alien = Alien(ai_settings,screen)
-		alien.x = alien.width +2 * alien.width * i
+		alien.x = alien.width +2 * alien.width * alien_number
 		alien.rect.x = alien.x
 		aliens.add(alien)
 
 
 def create_fleet(ai_settings,screen, aliens):
 	number_aliens_x = get_number_aliens(ai_settings,screen,aliens)
-	create_alien(ai_settings,screen,aliens,number_aliens_x)
+	for alien_number in range(number_aliens_x):
+		create_alien(ai_settings,screen,aliens,alien_number)
 
 def update_screen(ai_settings,screen,ship,aliens,bullets):
 	screen.fill(ai_settings.bg_color)
