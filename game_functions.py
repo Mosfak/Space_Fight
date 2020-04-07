@@ -44,23 +44,36 @@ def check_events(ai_settings,screen,ship,bullets):
         	check_keyrelease(event,ship)
 
 
+def get_number_rows(ai_settings,ship_height,alien_height):
+	#subtracted 3 aliens because we need 3 row empty from the bottom
+	available_space_y = (ai_settings.screen_height - 6 * alien_height - ship_height)
+	#each alien needs some extra space avobe and below it
+	num_rows = int(available_space_y / (2*alien_height))
+	return num_rows
+
 def get_number_aliens(ai_settings,screen,aliens):
 	alien = Alien(ai_settings,screen)
 	available_space_x = ai_settings.screen_width - 2* alien.width 
-	number_aliens_x = int(available_space_x / (2* alien.width))
+	number_aliens_x = int(available_space_x / (2* alien.width)) 
 	return number_aliens_x
 
-def create_alien(ai_settings,screen,aliens,alien_number):
+def create_alien(ai_settings,screen,aliens,alien_number,row_number):
 		alien = Alien(ai_settings,screen)
 		alien.x = alien.width +2 * alien.width * alien_number
 		alien.rect.x = alien.x
+		#one alien empty space...and for each alien we need space of two 
+		#and to have rect we need to multiply with row number
+		alien.rect.y = alien.rect.height + 2*alien.rect.height * row_number
 		aliens.add(alien)
 
 
-def create_fleet(ai_settings,screen, aliens):
+def create_fleet(ai_settings,screen,ship, aliens):
+	alien = Alien(ai_settings,screen)
 	number_aliens_x = get_number_aliens(ai_settings,screen,aliens)
-	for alien_number in range(number_aliens_x):
-		create_alien(ai_settings,screen,aliens,alien_number)
+	num_rows = get_number_rows(ai_settings,ship.rect.height,alien.rect.height)
+	for row_number in range(num_rows):
+		for alien_number in range(number_aliens_x):
+			create_alien(ai_settings,screen,aliens,alien_number,row_number)
 
 def update_screen(ai_settings,screen,ship,aliens,bullets):
 	screen.fill(ai_settings.bg_color)
