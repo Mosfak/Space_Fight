@@ -12,8 +12,8 @@ class Alien(Sprite):
 		self.ai_settings = ai_settings
 
 		#load the image of alien image
-		self.image = pygame.image.load("images/alien.bmp")
-		self.image = pygame.transform.rotozoom(self.image,0,0.1)
+		self.image = pygame.image.load("images/alien.png")
+		self.image = pygame.transform.rotozoom(self.image,0,0.07)
 		self.rect = self.image.get_rect()
 
 		#its dimension

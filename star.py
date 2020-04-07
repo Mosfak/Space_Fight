@@ -9,7 +9,7 @@ class Star(Sprite):
 		self.screen = screen
 		#self.ai_settings = ai_settings
 		self.image = pg.image.load("images/star.png")
-		self.image = pg.transform.rotozoom(self.image,0,random.uniform(0.01,0.02))
+		self.image = pg.transform.rotozoom(self.image,0,random.uniform(0.01,0.03))
 		self.rect = self.image.get_rect()
 		self.screen_rect = screen.get_rect()
 
