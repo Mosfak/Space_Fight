@@ -75,10 +75,11 @@ def create_fleet(ai_settings,screen,ship, aliens):
 		for alien_number in range(number_aliens_x):
 			create_alien(ai_settings,screen,aliens,alien_number,row_number)
 
-def update_screen(ai_settings,screen,ship,aliens,bullets):
+def update_screen(ai_settings,screen,ship,aliens,bullets,stars):
 	screen.fill(ai_settings.bg_color)
 	ship.blitme()
 	aliens.draw(screen)
+	stars.draw(screen)
 	#little confusion
 	#why bullets.sprites() while bullet just works fine--------?
 	for bullet in bullets.sprites():
