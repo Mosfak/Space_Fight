@@ -33,6 +33,7 @@ def run_game():
         gf.check_events(ai_settings,screen,ship,bullets)
         ship.update()
         bullets.update()
+        stars.update()
         gf.update_screen(ai_settings,screen,ship,aliens,bullets,stars)
         #get rid of bullets off screen
         for bullet in bullets:

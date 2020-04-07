@@ -19,3 +19,8 @@ class Star(Sprite):
 	def blitme(self):
 		self.screen.blit(self.image,self.rect)
 
+	def update(self):
+		if(self.rect.bottom<self.screen_rect.bottom):
+			self.rect.centery+=1
+		else:
+			self.rect.centery = 0
