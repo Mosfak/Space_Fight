@@ -75,6 +75,22 @@ def create_fleet(ai_settings,screen,ship, aliens):
 		for alien_number in range(number_aliens_x):
 			create_alien(ai_settings,screen,aliens,alien_number,row_number)
 
+def drop_aliens(aliens):
+	for alien in aliens:
+		alien.rect.y+=alien.ai_settings.alien_drop_speed
+
+def alien_update(aliens):
+	#left right moving functionality
+	for alien in aliens:
+		if(alien.rect.right>= alien.screen_rect.right):
+			alien.ai_settings.alien_direction = -1
+			drop_aliens(aliens)
+		elif alien.rect.left <=0:
+			alien.ai_settings.alien_direction = 1
+			drop_aliens(aliens)
+		alien.rect.x+=(alien.ai_settings.alien_speed * alien.ai_settings.alien_direction)
+
+
 
 def check_collitions(aliens,bullets):
 	collitions = pygame.sprite.groupcollide(bullets,aliens,True,True)
