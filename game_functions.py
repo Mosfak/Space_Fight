@@ -75,6 +75,12 @@ def create_fleet(ai_settings,screen,ship, aliens):
 		for alien_number in range(number_aliens_x):
 			create_alien(ai_settings,screen,aliens,alien_number,row_number)
 
+
+def update_bullets(aliens,bullets):
+	collitions = pygame.sprite.groupcollide(bullets,aliens,True,True)
+
+
+
 def update_screen(ai_settings,screen,ship,aliens,bullets,stars):
 	screen.fill(ai_settings.bg_color)
 	ship.blitme()
@@ -85,3 +91,4 @@ def update_screen(ai_settings,screen,ship,aliens,bullets,stars):
 	for bullet in bullets.sprites():
 		bullet.draw_bullet()
 	pygame.display.flip()
+
