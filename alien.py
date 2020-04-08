@@ -9,6 +9,7 @@ class Alien(Sprite):
 
 		super(Alien,self).__init__()
 		self.screen = screen
+		self.screen_rect = self.screen.get_rect()
 		self.ai_settings = ai_settings
 
 		#load the image of alien image
@@ -31,3 +32,16 @@ class Alien(Sprite):
 
 	def blitme(self):
 		self.screen.blit(self.image,self.rect)
+
+	def update(self):
+		#check if any of the aliens touch the wall
+		if(self.rect.right>= self.screen_rect.right ):
+			#change direction
+			self.ai_settings.alien_direction = -1
+			#self.rect.y+= self.ai_settings.alien_drop_speed
+		elif self.rect.left <=0:
+			self.ai_settings.alien_direction = 1
+			#self.rect.y+= self.ai_settings.alien_drop_speed
+
+		self.rect.x+=(self.ai_settings.alien_speed * self.ai_settings.alien_direction)
+		

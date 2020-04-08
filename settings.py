@@ -3,7 +3,7 @@ class Settings():
     def __init__(self):
 
         #screen Settings
-        self.screen_width = 1200
+        self.screen_width = 1500
         self.screen_height = 800
         self.bg_color = (0, 0, 0)
 
@@ -18,3 +18,7 @@ class Settings():
         self.bullets_allowed = 10
         self.bullets_limited = False
 
+        #alien settings
+        self.alien_speed = 1
+        self.alien_drop_speed = 1
+        self.alien_direction = -1
