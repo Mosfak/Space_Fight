@@ -36,10 +36,8 @@ def run_game():
         gf.update_bullets(aliens,bullets)
         stars.update()
         gf.update_screen(ai_settings,screen,ship,aliens,bullets,stars)
-        #get rid of bullets off screen
-        for bullet in bullets:
-            if bullet.rect.bottom < 0:
-                bullets.remove(bullet)
+        
+        
         #print("live Bullets: ",len(bullets))
     return
 

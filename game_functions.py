@@ -77,6 +77,10 @@ def create_fleet(ai_settings,screen,ship, aliens):
 
 
 def update_bullets(aliens,bullets):
+	for bullet in bullets:
+		if bullet.rect.bottom < 0:
+			bullets.remove(bullet)
+	#check collitions
 	collitions = pygame.sprite.groupcollide(bullets,aliens,True,True)
 
 
