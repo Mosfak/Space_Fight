@@ -33,7 +33,7 @@ def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
 	else:
 		stats.game_active = False
 
-def check_keypress(event,ai_settings,screen,ship,bullets):
+def check_keypress(event,ai_settings,screen,stats,ship,bullets):
 	"""Response to key press"""
 	if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
 		#move the ship to right
@@ -45,10 +45,15 @@ def check_keypress(event,ai_settings,screen,ship,bullets):
 	elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
 		ship.moving_down = True
 	elif event.key == pygame.K_SPACE:
-		if len(bullets)< ai_settings.bullets_allowed or ai_settings.bullets_limited == False:
+		if not stats.game_active:
+			stats.game_active =True
+		elif len(bullets)< ai_settings.bullets_allowed or ai_settings.bullets_limited == False:
 			bullets.add(Bullet(ai_settings,screen,ship))
 	elif event.key == pygame.K_q:
 		sys.exit()
+	elif event.key == pygame.K_p:
+		stats.game_active = not stats.game_active
+
 
 
 
@@ -64,12 +69,12 @@ def check_keyrelease(event,ship):
 		ship.moving_down = False
 	
 
-def check_events(ai_settings,screen,ship,bullets):
+def check_events(ai_settings,screen,stats,ship,bullets):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-        	check_keypress(event,ai_settings,screen,ship,bullets)
+        	check_keypress(event,ai_settings,screen,stats,ship,bullets)
         elif event.type == pygame.KEYUP:
         	check_keyrelease(event,ship)
 
@@ -142,7 +147,7 @@ def update_bullets(aliens,bullets):
 
 
 
-def update_screen(ai_settings,screen,ship,aliens,bullets,stars):
+def update_screen(ai_settings,screen,stats,ship,aliens,bullets,stars,play_button):
 	screen.fill(ai_settings.bg_color)
 	ship.blitme()
 	aliens.draw(screen)
@@ -151,5 +156,8 @@ def update_screen(ai_settings,screen,ship,aliens,bullets,stars):
 	#why bullets.sprites() while bullet just works fine--------?
 	for bullet in bullets.sprites():
 		bullet.draw_bullet()
+
+	if not stats.game_active:
+		play_button.draw_button()
 	pygame.display.flip()
 

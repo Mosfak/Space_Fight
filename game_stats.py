@@ -2,9 +2,10 @@ class GameStats():
 
 	def __init__(self,ai_settings):
 		self.ai_settings = ai_settings
-		self.game_active = True
-
 		self.reset_stats()
+
+		#start game in inactive mode
+		self.game_active = False
 
 
 	def reset_stats(self):

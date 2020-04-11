@@ -8,6 +8,7 @@ import random
 from star import Star
 from game_stats import GameStats as gs
 from time import sleep
+from button import Button
 
 def run_game():
     pygame.init()
@@ -18,6 +19,9 @@ def run_game():
 
     #initialize game stats
     stats = gs(ai_settings)
+
+    #make play button
+    play_button = Button(ai_settings,screen,"Play")
 
     #make a ship
     ship = Ship(ai_settings,screen)
@@ -35,7 +39,7 @@ def run_game():
         stars.add(Star(screen))
 
     while True:
-        gf.check_events(ai_settings,screen,ship,bullets)
+        gf.check_events(ai_settings,screen,stats,ship,bullets)
         if stats.game_active:
             ship.update()
             bullets.update()
@@ -43,10 +47,9 @@ def run_game():
             gf.alien_update(ai_settings,stats,screen,ship,aliens,bullets)
             stars.update()
         
-        gf.update_screen(ai_settings,screen,ship,aliens,bullets,stars)
+        gf.update_screen(ai_settings,screen,stats,ship,aliens,bullets,stars,play_button)
         
         
-        #print("live Bullets: ",len(bullets))
     return
 
 run_game()
