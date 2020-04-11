@@ -33,7 +33,7 @@ def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
 	else:
 		stats.game_active = False
 
-def check_keypress(event,ai_settings,screen,stats,ship,bullets):
+def check_keypress(event,ai_settings,screen,stats,ship,bullets,aliens):
 	"""Response to key press"""
 	if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
 		#move the ship to right
@@ -52,8 +52,10 @@ def check_keypress(event,ai_settings,screen,stats,ship,bullets):
 	elif event.key == pygame.K_q:
 		sys.exit()
 	elif event.key == pygame.K_p:
+		is_game_over(ai_settings,stats,screen,ship,aliens,bullets)
 		stats.game_active = not stats.game_active
 	elif event.key == pygame.K_ESCAPE:
+		is_game_over(ai_settings,stats,screen,ship,aliens,bullets)
 		stats.game_active = False
 
 
@@ -69,20 +71,29 @@ def check_keyrelease(event,ship):
 	elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
 		ship.moving_down = False
 
-def check_play_button(stats,play_button,mousex,mousey):
+def is_game_over(ai_settings,screen,stats,ship,aliens,bullets):
+	if(stats.ship_left<=0):
+			stats.reset_stats()
+			aliens.empty()
+			bullets.empty()
+			create_fleet(ai_settings,screen, ship , aliens)
+			ship.restart()
+
+def check_play_button(ai_settings,screen,ship,aliens,bullets,stats,play_button,mousex,mousey):
 	if play_button.rect.collidepoint(mousex,mousey):
+		is_game_over(ai_settings,screen,stats,ship,aliens,bullets)
 		stats.game_active = True
 
 
-def check_events(ai_settings,screen,stats,play_button,ship,bullets):
+def check_events(ai_settings,screen,stats,play_button,ship,bullets,aliens):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type ==pygame.MOUSEBUTTONDOWN:
         	mousex,mousey = pygame.mouse.get_pos()
-        	check_play_button(stats,play_button,mousex,mousey)
+        	check_play_button(ai_settings,screen,ship,aliens,bullets,stats,play_button,mousex,mousey)
         elif event.type == pygame.KEYDOWN:
-        	check_keypress(event,ai_settings,screen,stats,ship,bullets)
+        	check_keypress(event,ai_settings,screen,stats,ship,bullets,aliens)
         elif event.type == pygame.KEYUP:
         	check_keyrelease(event,ship)
 
