@@ -15,7 +15,7 @@ def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
 
 	#reate new fleet of aliens and recenter ship
 	create_fleet(ai_settings,screen,ship, aliens)
-	ship.center_ship()
+	ship.restart()
 
 	#pause
 	sleep(0.5)
@@ -109,7 +109,6 @@ def alien_update(ai_settings,stats,screen,ship,aliens,bullets):
 	#Looking for alien -ship crash
 	if pygame.sprite.spritecollideany(ship,aliens):
 		ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
-
 
 def check_collitions(aliens,bullets):
 	collitions = pygame.sprite.groupcollide(bullets,aliens,True,True)
