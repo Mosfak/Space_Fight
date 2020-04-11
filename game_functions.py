@@ -15,19 +15,23 @@ def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets):
 
 
 def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
-	#decrement of ships left
-	stats.ship_left -= 1
+	if stats.ship_left > 0:
 
-	#empty aliens and bullets
-	aliens.empty()
-	bullets.empty()
+		#decrement of ships left
+		stats.ship_left -= 1
 
-	#reate new fleet of aliens and recenter ship
-	create_fleet(ai_settings,screen,ship, aliens)
-	ship.restart()
+		#empty aliens and bullets
+		aliens.empty()
+		bullets.empty()
 
-	#pause
-	sleep(0.5)
+		#create new fleet of aliens and recenter ship
+		create_fleet(ai_settings,screen,ship, aliens)
+		ship.restart()
+
+		#pause
+		sleep(0.5)
+	else:
+		stats.game_active = False
 
 def check_keypress(event,ai_settings,screen,ship,bullets):
 	"""Response to key press"""
