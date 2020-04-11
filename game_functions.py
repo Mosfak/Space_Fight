@@ -2,6 +2,23 @@ import sys
 import pygame
 from bullet import Bullet
 from alien import Alien
+from time import sleep
+
+
+def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
+	#decrement of ships left
+	stats.ship_left -= 1
+
+	#empty aliens and bullets
+	aliens.empty()
+	bullets.empty()
+
+	#reate new fleet of aliens and recenter ship
+	create_fleet(ai_settings,screen,ship, aliens)
+	ship.center_ship()
+
+	#pause
+	sleep(0.5)
 
 def check_keypress(event,ai_settings,screen,ship,bullets):
 	"""Response to key press"""
@@ -79,7 +96,7 @@ def drop_aliens(aliens):
 	for alien in aliens:
 		alien.rect.y+=alien.ai_settings.alien_drop_speed
 
-def alien_update(aliens):
+def alien_update(ai_settings,stats,screen,ship,aliens,bullets):
 	#left right moving functionality
 	for alien in aliens:
 		if(alien.rect.right>= alien.screen_rect.right):
@@ -89,7 +106,9 @@ def alien_update(aliens):
 			alien.ai_settings.alien_direction = 1
 			drop_aliens(aliens)
 		alien.rect.x+=(alien.ai_settings.alien_speed * alien.ai_settings.alien_direction)
-
+	#Looking for alien -ship crash
+	if pygame.sprite.spritecollideany(ship,aliens):
+		ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
 
 
 def check_collitions(aliens,bullets):

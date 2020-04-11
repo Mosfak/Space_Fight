@@ -6,6 +6,8 @@ from pygame.sprite import Group
 from alien import Alien
 import random
 from star import Star
+from game_stats import GameStats as gs
+from time import sleep
 
 def run_game():
     pygame.init()
@@ -13,6 +15,9 @@ def run_game():
     screen = pygame.display.set_mode((ai_settings.screen_width,ai_settings.screen_height))
     pygame.display.set_caption("Space Fight")
     screen.fill(ai_settings.bg_color)
+
+    #initialize game stats
+    stats = gs(ai_settings)
 
     #make a ship
     ship = Ship(ai_settings,screen)
@@ -34,7 +39,7 @@ def run_game():
         ship.update()
         bullets.update()
         gf.update_bullets(aliens,bullets)
-        gf.alien_update(aliens)
+        gf.alien_update(ai_settings,stats,screen,ship,aliens,bullets)
         stars.update()
         gf.update_screen(ai_settings,screen,ship,aliens,bullets,stars)
         
