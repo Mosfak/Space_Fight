@@ -53,7 +53,8 @@ def check_keypress(event,ai_settings,screen,stats,ship,bullets):
 		sys.exit()
 	elif event.key == pygame.K_p:
 		stats.game_active = not stats.game_active
-
+	elif event.key == pygame.K_ESCAPE:
+		stats.game_active = False
 
 
 
@@ -67,16 +68,24 @@ def check_keyrelease(event,ship):
 		ship.moving_up = False
 	elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
 		ship.moving_down = False
-	
 
-def check_events(ai_settings,screen,stats,ship,bullets):
+def check_play_button(stats,play_button,mousex,mousey):
+	if play_button.rect.collidepoint(mousex,mousey):
+		stats.game_active = True
+
+
+def check_events(ai_settings,screen,stats,play_button,ship,bullets):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+        elif event.type ==pygame.MOUSEBUTTONDOWN:
+        	mousex,mousey = pygame.mouse.get_pos()
+        	check_play_button(stats,play_button,mousex,mousey)
         elif event.type == pygame.KEYDOWN:
         	check_keypress(event,ai_settings,screen,stats,ship,bullets)
         elif event.type == pygame.KEYUP:
         	check_keyrelease(event,ship)
+
 
 
 def get_number_rows(ai_settings,ship_height,alien_height):
