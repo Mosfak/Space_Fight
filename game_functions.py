@@ -5,6 +5,15 @@ from alien import Alien
 from time import sleep
 
 
+def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets):
+	screen_rect = screen.get_rect()
+	for alien in aliens:
+		if(alien.rect.bottom >= screen_rect.bottom):
+			ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
+			break
+
+
+
 def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
 	#decrement of ships left
 	stats.ship_left -= 1
@@ -106,6 +115,10 @@ def alien_update(ai_settings,stats,screen,ship,aliens,bullets):
 			alien.ai_settings.alien_direction = 1
 			drop_aliens(aliens)
 		alien.rect.x+=(alien.ai_settings.alien_speed * alien.ai_settings.alien_direction)
+	
+	#looking for alien reaching bottom
+	check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets)
+
 	#Looking for alien -ship crash
 	if pygame.sprite.spritecollideany(ship,aliens):
 		ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
