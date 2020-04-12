@@ -180,11 +180,12 @@ def update_bullets(aliens,bullets):
 
 
 
-def update_screen(ai_settings,screen,stats,ship,aliens,bullets,stars,play_button):
+def update_screen(ai_settings,screen,stats,sb,ship,aliens,bullets,stars,play_button):
 	screen.fill(ai_settings.bg_color)
 	ship.blitme()
 	aliens.draw(screen)
 	stars.draw(screen)
+	sb.show_score()
 	#little confusion
 	#why bullets.sprites() while bullet just works fine--------?
 	for bullet in bullets.sprites():

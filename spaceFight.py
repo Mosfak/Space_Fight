@@ -9,6 +9,7 @@ from star import Star
 from game_stats import GameStats as gs
 from time import sleep
 from button import Button
+from scoreboard import Scoreboard
 
 def run_game():
     pygame.init()
@@ -19,7 +20,8 @@ def run_game():
 
     #initialize game stats
     stats = gs(ai_settings)
-
+    #scoreboard
+    sb = Scoreboard(ai_settings,screen,stats)
     #make play button
     play_button = Button(ai_settings,screen,"Play")
 
@@ -49,7 +51,7 @@ def run_game():
             pygame.mouse.set_visible(False)
         else:
             pygame.mouse.set_visible(True)
-        gf.update_screen(ai_settings,screen,stats,ship,aliens,bullets,stars,play_button)
+        gf.update_screen(ai_settings,screen,stats,sb,ship,aliens,bullets,stars,play_button)
         
         
     return
