@@ -12,6 +12,13 @@ def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets):
 			ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
 			break
 
+def is_game_over(ai_settings,screen,stats,ship,aliens,bullets):
+	if(stats.ship_left<=0):
+		stats.reset_stats()
+		aliens.empty()
+		bullets.empty()
+		create_fleet(ai_settings,screen, ship , aliens)
+		ship.restart()
 
 
 def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
@@ -52,10 +59,23 @@ def check_keypress(event,ai_settings,screen,stats,ship,bullets,aliens):
 	elif event.key == pygame.K_q:
 		sys.exit()
 	elif event.key == pygame.K_p:
-		is_game_over(ai_settings,stats,screen,ship,aliens,bullets)
+		#print(stats.ship_left)
+		#is_game_over(ai_settings,screen,stats,ship,aliens,bullets)
+		if(stats.ship_left<=0):
+			stats.reset_stats()
+			aliens.empty()
+			bullets.empty()
+			create_fleet(ai_settings,screen, ship , aliens)
+			ship.restart()
 		stats.game_active = not stats.game_active
 	elif event.key == pygame.K_ESCAPE:
-		is_game_over(ai_settings,stats,screen,ship,aliens,bullets)
+		#is_game_over(ai_settings,stats,screen,ship,aliens,bullets)
+		if(stats.ship_left<=0):
+			stats.reset_stats()
+			aliens.empty()
+			bullets.empty()
+			create_fleet(ai_settings,screen, ship , aliens)
+			ship.restart()
 		stats.game_active = False
 
 
@@ -71,13 +91,6 @@ def check_keyrelease(event,ship):
 	elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
 		ship.moving_down = False
 
-def is_game_over(ai_settings,screen,stats,ship,aliens,bullets):
-	if(stats.ship_left<=0):
-			stats.reset_stats()
-			aliens.empty()
-			bullets.empty()
-			create_fleet(ai_settings,screen, ship , aliens)
-			ship.restart()
 
 def check_play_button(ai_settings,screen,ship,aliens,bullets,stats,play_button,mousex,mousey):
 	if play_button.rect.collidepoint(mousex,mousey):
