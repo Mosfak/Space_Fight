@@ -46,7 +46,9 @@ def run_game():
             gf.update_bullets(aliens,bullets)
             gf.alien_update(ai_settings,stats,screen,ship,aliens,bullets)
             stars.update()
-        
+            pygame.mouse.set_visible(False)
+        else:
+            pygame.mouse.set_visible(True)
         gf.update_screen(ai_settings,screen,stats,ship,aliens,bullets,stars,play_button)
         
         
