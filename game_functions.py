@@ -34,11 +34,12 @@ def ship_hit(ai_settings,stats,screen,ship,aliens,bullets):
 		#create new fleet of aliens and recenter ship
 		create_fleet(ai_settings,screen,ship, aliens)
 		ship.restart()
-
 		#pause
 		sleep(0.5)
 	else:
 		stats.game_active = False
+		ai_settings.initialize_dynamic_settings()
+
 
 def check_keypress(event,ai_settings,screen,stats,ship,bullets,aliens):
 	"""Response to key press"""
@@ -165,17 +166,24 @@ def alien_update(ai_settings,stats,screen,ship,aliens,bullets):
 	if pygame.sprite.spritecollideany(ship,aliens):
 		ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
 
-def check_collitions(aliens,bullets):
+def check_collitions(ai_settings,screen,ship,aliens,bullets):
 	collitions = pygame.sprite.groupcollide(bullets,aliens,True,True)
+	if len(aliens) == 0:
+		#vanish all the bullets
+		bullets.remove()
+		#speed up the game 
+		ai_settings.increase_speed()
+		#recreate the alien fleet
+		create_fleet(ai_settings,screen,ship, aliens)
 	return collitions 
 
 
-def update_bullets(aliens,bullets):
+def update_bullets(ai_settings,screen,ship,aliens,bullets):
 	for bullet in bullets:
 		if bullet.rect.bottom < 0:
 			bullets.remove(bullet)
 	#check collitions
-	check_collitions(aliens,bullets)
+	check_collitions(ai_settings,screen,ship,aliens,bullets)
 	
 
 
