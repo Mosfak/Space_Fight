@@ -16,8 +16,8 @@ class Settings():
         self.bullet_width = 5
         self.bullet_height = 15
         self.bullet_color = 171, 0, 0
-        self.bullets_allowed = 10
-        self.bullets_limited = False
+        self.bullets_allowed = 5
+        self.bullets_limited = True
 
         #alien settings
         #self.alien_speed = 1
